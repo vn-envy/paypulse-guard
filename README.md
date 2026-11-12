@@ -4,22 +4,29 @@ An AI collections agent for PayPal invoices that can chase money but cannot move
 
 Built for the PayPal AI Hackathon 2026. MIT licensed.
 
-## Try it in two minutes (no PayPal account needed)
+## For judges: run it and see the whole loop (about 3 minutes, no keys needed)
 
 ```bash
 npm install
-npm run dev        # http://localhost:3000, operator PIN 2468
+npm run dev        # open http://localhost:3000
 ```
 
-With no `.env.local`, the app runs against a built-in PayPal emulator (labelled in the UI) and a deterministic rules planner, so you can try the whole loop without any keys:
+With no `.env.local`, the app runs against a built-in PayPal emulator and a deterministic rules planner. The header says so. Operator PIN: **2468**.
 
-1. **Set up autopilot**, unlock with PIN `2468`, **Sign autopilot**.
-2. **Run the collections agent**. Reminders run on autopilot; anything over the limits waits for **Sign and send**.
-3. **Pay as client** on the new invoice and watch "Recovered" go up.
-4. **Run five attacks** to see each one stopped, and by which gate.
-5. Open **Analytics** for the AG Studio dashboard.
+1. **Look at the problem.** The top row shows what's owed and how much is late. Each invoice shows how late it is against how late that client usually pays.
+2. **Set the limits.** Under "What the agent wants to do", click **Set up autopilot**. Keep reminders ticked, 3%, 150, 7 days. Click **Unlock to sign**, enter `2468`, then **Sign autopilot**. (You can also unlock any time with the **Signing locked** button, top right.)
+3. **Run the agent.** Click **Run the collections agent**. The reminder runs on autopilot (AUTOPILOT stamp). The Acme settlement is over the 3% limit, so it waits for you, with the evidence on the card.
+4. **Sign it.** Click **Sign and send** on the Acme card. You'll see the three PayPal calls it made: create, send, cancel.
+5. **Let the client pay.** In "Who owes you", click **Pay as client** on the new Acme invoice. The row turns green and "Recovered" goes up.
+6. **Attack it.** Scroll to "Now assume the agent is compromised" and click **Run five attacks**. Each card shows the gate that stopped it.
+7. **See the analytics.** Click the **Analytics** tab for the AG Studio dashboard. The assistant under **Build your own view** needs an `LLM_API_KEY`.
+8. **Start over.** At the bottom of the cockpit, **Clear proposals and ledger** resets the run, and turns autopilot off.
 
-`npm run test:e2e` (with the dev server running) runs 22 end-to-end checks. To use your own PayPal sandbox and an LLM, see [Run it](#run-it). Needs Node 20.9 or later.
+Optional:
+- **Real model:** put `LLM_API_KEY`, `LLM_BASE_URL` and `LLM_MODEL` in `.env.local` and restart (see `.env.example`). The agent's choices then vary run to run.
+- **Your own agent over MCP:** unlock signing, then **Connect another agent** gives you a Claude Desktop config or a `claude mcp add` command. See [Connect another agent](#connect-another-agent-mcp).
+- **Tests:** with the dev server running, `npm run test:e2e` runs 22 end-to-end checks.
+- **PayPal sandbox:** see [Run it](#run-it). Needs Node 20.9 or later.
 
 ## The problem
 
