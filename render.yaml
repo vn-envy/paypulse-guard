@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: paypulse-guard
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: PAYPAL_CLIENT_ID
+        sync: false
+      - key: PAYPAL_SECRET
+        sync: false
+      - key: PAYPAL_WEBHOOK_ID
+        sync: false
+      - key: LLM_API_KEY
+        sync: false
+      - key: LLM_BASE_URL
+        value: https://api.openai.com/v1
+      - key: LLM_MODEL
+        sync: false
+      - key: GUARD_OPERATOR_PIN
+        sync: false
+      - key: GUARD_SECRET
+        generateValue: true
+      - key: GUARD_AGENT_KEY
+        generateValue: true
+      - key: AG_STUDIO_LICENSE_KEY
+        sync: false

@@ -1,0 +1,32 @@
+{
+  "name": "paypulse-guard",
+  "version": "2.0.0",
+  "private": true,
+  "license": "MIT",
+  "description": "An AI collections agent for PayPal invoices that can chase money but cannot move it without a signed, policy-checked approval.",
+  "engines": {
+    "node": ">=20.9"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "demo": "next build && next start",
+    "seed": "node --env-file-if-exists=.env.local scripts/seed-paypal.mjs",
+    "verify:paypal": "node --env-file-if-exists=.env.local scripts/verify-paypal.mjs",
+    "test:e2e": "node scripts/e2e.mjs"
+  },
+  "dependencies": {
+    "ag-studio": "3.1.0",
+    "ag-studio-react": "3.1.0",
+    "next": "16.4.6",
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.0",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "typescript": "5.7.2"
+  }
+}

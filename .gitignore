@@ -1,0 +1,13 @@
+node_modules
+.next
+.data
+.env.local
+.env
+next-env.d.ts
+*.tsbuildinfo
+_legacy_gemini
+Claude outputs/
+*.zip
+*.mov
+*.mp4
+VOICEOVER.md
